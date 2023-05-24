@@ -1,0 +1,12 @@
+.moretable .ant-table-tbody > tr:hover > td {
+  background-color: #d89191 !important;
+  border-radius: 5px;
+}
+.moretable.ant-table td {
+  background-color: #00bcd4;
+  color: #fff;
+}
+.moretable.ant-table thead tr th {
+  background-color: #00d42e !important ;
+  color: #fff;
+}

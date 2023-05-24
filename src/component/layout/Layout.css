@@ -1,0 +1,56 @@
+.ant-pro-page-container-children-content {
+    /* padding-block: 24px; 
+     padding-inline: 40px; */
+     padding-block: 5px; 
+     padding-inline: 5px;
+}
+
+/* khi click vao ant dong mo sider menu */
+.ant-layout .ant-layout-sider {
+  position: relative;
+  min-width: 0;
+  /* background: #001529; */
+  transition: all 1.5s;
+}
+/* nut click dong mo */
+.my-prefix-sider-collapsed-button {
+  position: absolute;
+  /* inset-block-start: 18px; */
+  font-size: large;
+  z-index: 101;
+  /* width: 24px; */
+  width: 24px;
+  /* height: 24px; */
+  text-align: center;
+  border-radius: 40px;
+  inset-inline-end: -13px;
+  transition: transform 1.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.25);
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px -2px rgba(0,0,0,0.05), 0 1px 4px -1px rgba(25,15,15,0.07), 0 0 1px 0 rgba(0,0,0,0.08);
+}
+/* child menu */
+.my-prefix-layout .my-prefix-sider .ant-layout-sider-children {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-inline: 8px;
+  padding-block: 0;
+  border-inline-end: 1px solid rgba(5, 5, 5, 0.06);
+  margin-inline-end: -1px;
+}
+/* thay doi thanh header */
+/* thay z-index */
+.my-prefix-layout .ant-layout-header.my-prefix-layout-header-fixed-header {
+  position: fixed;
+  inset-block-start: 30;
+  width: 100%;
+  z-index: 1099;
+  background-color: aqua;
+  /* inset-inline-end: 0; */
+}

@@ -1,0 +1,7 @@
+/* .ant-table-bordered .ant-table-cell {
+    border: 5px solid red;
+} */
+
+.ant-table-wrapper .ant-table-bordered .ant-table-cell {
+    border: 5px solid rgb(0, 255, 149);
+}
