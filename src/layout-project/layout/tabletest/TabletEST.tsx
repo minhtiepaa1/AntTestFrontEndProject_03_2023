@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'antd';
+import styles from "./Table.module.css"
 
 interface DataType {
   key: number;
@@ -87,8 +88,17 @@ const TabletEST: React.FC = () => {
     columns: columns,
     expandable: { childrenColumnName: 'childrenMot' },
   };
+  const constainClassName  = [
+    styles['ant-table-wrapper'],
+    styles['table'],
+    styles['ant-table-thead'],
+  ].join(' ');
 
-  return <Table {...tableProps} />;
+  return <Table 
+  className={constainClassName}
+ {...tableProps} 
+ 
+  />
 };
 
 
