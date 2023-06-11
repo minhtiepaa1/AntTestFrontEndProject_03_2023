@@ -1,0 +1,27 @@
+cách css Module.css ghi đè ant design:
+// file module.css
+.ant-table-wrapper table {
+    background-color: green ;
+}
+.ant-table-thead{
+    background-color: antiquewhite ;
+}
+//
+const TabletEST: React.FC = () => {
+  const tableProps = {
+    dataSource: data,
+    columns: columns,
+    expandable: { childrenColumnName: 'childrenMot' },
+  };
+  const constainClassName  = [
+    styles['ant-table-wrapper'],
+    styles['table'],
+    styles['ant-table-thead'],
+  ].join(' ');
+
+  return <Table 
+  className={constainClassName} // here
+ {...tableProps} 
+ 
+  />
+};

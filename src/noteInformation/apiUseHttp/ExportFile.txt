@@ -1,0 +1,134 @@
+Để gọi API để xuất file sử dụng thư viện Axios và hook useHttp (giả sử bạn đã tạo sẵn),
+ bạn có thể thực hiện các bước sau:
+
+Cài đặt Axios và import nó vào dự án của bạn:
+
+// Sử dụng npm
+npm install axios
+
+import axios from 'axios';
+Tạo một hàm sử dụng Axios và hook useHttp để gọi API xuất file:
+javascript
+Copy code
+import { useEffect } from 'react'; // Sử dụng useEffect nếu bạn đang làm việc với React
+import useHttp from './useHttp'; // Import hook useHttp đã tạo
+
+const exportFile = () => {
+  const { sendRequest } = useHttp();
+
+  useEffect(() => {
+    const fetchFile = async () => {
+      try {
+        const response = await sendRequest({
+          url: 'URL_API_EXPORT_FILE',
+          method: 'GET',
+          responseType: 'blob', // Đặt kiểu dữ liệu trả về là blob
+        });
+
+        // Xử lý file sau khi nhận được dữ liệu
+        const url = URL.createObjectURL(response.data);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'ten_file.xlsx'; // Tên file tải về
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (error) {
+        // Xử lý lỗi nếu có
+        console.error('Lỗi:', error);
+      }
+    };
+
+    fetchFile();
+  }, [sendRequest]);
+
+  // ...
+};
+Trong ví dụ trên, chúng ta sử dụng hook useEffect để gọi hàm fetchFile khi component được render.
+Hàm fetchFile sử dụng sendRequest từ hook useHttp để gọi API xuất file với phương thức GET
+ và kiểu dữ liệu trả về là blob. Sau khi nhận được dữ liệu file, chúng ta tiến hành xử lý 
+ file giống như trong ví dụ trước đó.
+
+Lưu ý rằng ví dụ trên giả sử bạn đã tạo sẵn hook useHttp để quản lý các yêu cầu HTTP trong ứng dụng của bạn.
+ Nếu bạn không sử dụng React hoặc không có hook tương tự, bạn có thể thay thế useEffect và useHttp bằng các 
+ phương thức và thư viện tương ứng trong framework hoặc thư viện của bạn.
+
+cách tạo  hook useHttp đối với export file
+Đây là một ví dụ về cách tạo hook useHttp đối với việc xuất file bằng Axios:
+
+import { useState } from 'react';
+import axios from 'axios';
+
+const useHttp = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const sendRequest = async (config) => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await axios(config);
+      setIsLoading(false);
+      return response;
+    } catch (error) {
+      setIsLoading(false);
+      setError(error);
+      throw error;
+    }
+  };
+
+  return { isLoading, error, sendRequest };
+};
+
+export default useHttp;
+Trong ví dụ trên, chúng ta sử dụng useState để quản lý trạng thái của isLoading (đang tải) và error (lỗi).
+Hook useHttp trả về một object với các giá trị và phương thức cần thiết để gửi yêu cầu HTTP.
+
+Trong phương thức sendRequest, chúng ta sử dụng axios để gửi yêu cầu HTTP.
+Đầu vào của phương thức sendRequest là một đối tượng config chứa các thông tin cấu hình của yêu cầu
+(ví dụ: URL, method, responseType, headers, v.v.). Phương thức này trả về một Promise,
+và chúng ta sử dụng await để chờ kết quả trả về từ yêu cầu HTTP.
+
+Nếu yêu cầu thành công, chúng ta gán isLoading thành false và trả về response từ yêu cầu.
+ Nếu yêu cầu gặp lỗi, chúng ta gán isLoading thành false, lưu lỗi vào error và ném ra lỗi để cho phần gọi API xử lý.
+
+Điều này cho phép bạn sử dụng hook useHttp trong component xuất file và xử lý
+các trạng thái isLoading và error để hiển thị các thông báo hoặc biểu đồ tải trong quá trình xuất file.
+
+giải thích đoạn này với : // Xử lý file sau khi nhận được dữ liệu
+        const url = URL.createObjectURL(response.data);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'ten_file.xlsx'; // Tên file tải về
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+Trong đoạn mã này, chúng ta xử lý file sau khi nhận được dữ liệu từ yêu cầu API để xuất file.
+ Dưới đây là giải thích từng dòng mã:
+
+const url = URL.createObjectURL(response.data);: Chúng ta tạo một đường dẫn tạm thời (url)
+ cho dữ liệu file được nhận từ phản hồi của yêu cầu API. Để tạo đường dẫn tạm thời, 
+ chúng ta sử dụng phương thức URL.createObjectURL() và truyền vào dữ liệu file (response.data).
+
+const link = document.createElement('a');: Chúng ta tạo một phần tử <a> mới trong DOM, 
+mà chúng ta sẽ sử dụng để tạo một liên kết tải về.
+
+link.href = url;: Chúng ta gán giá trị đường dẫn tạm thời (url) cho thuộc tính href của phần tử <a>.
+ Điều này sẽ định rõ đích của liên kết tới đường dẫn tạm thời.
+
+link.download = 'ten_file.xlsx';: Chúng ta đặt thuộc tính download của phần tử <a> thành tên file 
+(ten_file.xlsx trong ví dụ). Thuộc tính này chỉ định tên mà file sẽ được lưu với khi người dùng tải về.
+
+document.body.appendChild(link);: Chúng ta chèn phần tử <a> vừa tạo vào trong thẻ <body> của trang web, 
+để chuẩn bị cho việc nhấp vào liên kết.
+
+link.click();: Chúng ta tự động nhấp vào liên kết bằng cách gọi phương thức click(). 
+Điều này kích hoạt quá trình tải về file.
+
+document.body.removeChild(link);: Sau khi nhấp vào liên kết, chúng ta loại bỏ phần tử <a> khỏi thẻ <body> 
+để dọn dẹp và tránh gây xáo lộn trong DOM.
+
+Với các bước trên, chúng ta tạo một liên kết tải về file và tự động kích hoạt quá trình tải 
+xuống khi người dùng nhấp vào liên kết đó.
