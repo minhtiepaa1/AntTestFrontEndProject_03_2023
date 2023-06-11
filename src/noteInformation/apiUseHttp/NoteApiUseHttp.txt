@@ -1,0 +1,198 @@
+call api export file:
+import file từ máy cho api trên js sử dụng axios va useHttp
+
+Để import một file từ máy sử dụng Axios và useHttp trong JavaScript, bạn cần thực hiện các bước sau:
+Tạo một input type "file" trong HTML để cho phép người dùng chọn file từ máy:
+html
+Copy code
+<input type="file" id="myFileInput">
+Xử lý sự kiện khi người dùng chọn file. Đây có thể là một sự kiện nhấp chuột hoặc sự kiện gửi form,
+tùy thuộc vào ngữ cảnh sử dụng.
+
+javascript
+Copy code
+const fileInput = document.getElementById('myFileInput');
+
+fileInput.addEventListener('change', (event) => {
+  const selectedFile = event.target.files[0];
+
+  // Gọi hàm để upload file
+  uploadFile(selectedFile);
+});
+Sử dụng Axios và useHttp để gửi file lên server:
+
+javascript
+Copy code
+import { useHttp } from 'use-http';
+import axios from 'axios';
+
+const uploadFile = async (file) => {
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    // Sử dụng Axios hoặc useHttp để gửi yêu cầu POST đến API
+    const response = await axios.post('/api/upload', formData);
+    // Hoặc sử dụng useHttp
+    // const { post } = useHttp();
+    // const response = await post('/api/upload', formData);
+
+    console.log('Upload thành công', response.data);
+  } catch (error) {
+    console.error('Upload thất bại', error);
+  }
+};
+Trong ví dụ trên, chúng ta sử dụng FormData để tạo một đối tượng chứa file cần gửi. 
+Sau đó, chúng ta sử dụng Axios (hoặc useHttp) để gửi yêu cầu POST đến endpoint /api/upload với formData chứa file. 
+Cần chú ý rằng endpoint /api/upload cần được cung cấp bởi backend để xử lý việc lưu trữ file.
+
+Lưu ý: Để sử dụng Axios và useHttp, bạn cần cài đặt các thư viện tương ứng.
+
+User
+put, post, export file, upload file và delete có thể cấu hình chung như nào
+ChatGPT
+Cấu hình chung cho các phương thức PUT, POST, EXPORT, UPLOAD,
+ và DELETE trong một ứng dụng web thường được xác định bởi một số yếu tố sau:
+
+URL và Endpoint:
+Đối với mỗi phương thức, bạn cần xác định URL và endpoint tương ứng để gửi yêu cầu đến server. Ví dụ:
+
+PUT: /api/users/{id} - Cập nhật thông tin người dùng có ID nhất định.
+POST: /api/users - Tạo mới một người dùng.
+EXPORT: /api/reports/{id} - Xuất file báo cáo có ID nhất định.
+UPLOAD: /api/files - Tải lên một file lên server.
+DELETE: /api/users/{id} - Xóa người dùng có ID nhất định.
+Endpoint và URL có thể thay đổi tùy thuộc vào thiết kế API của ứng dụng của bạn.
+
+Phần header:
+Các phương thức trên có thể yêu cầu các thông tin trong header như token xác thực, loại nội dung, hay các thông tin khác. Ví dụ:
+
+Authorization: Bearer {token} - Xác thực bằng token.
+Content-Type: application/json - Loại nội dung là JSON.
+Hãy xem tài liệu của API mà bạn đang sử dụng để biết các thông tin header cần thiết cho từng phương thức.
+
+Thân yêu cầu (Request body):
+Đối với phương thức PUT, POST và UPLOAD, bạn thường cần gửi dữ liệu yêu cầu trong thân (body) của yêu cầu. Dữ liệu này có thể là một đối tượng JSON, FormData (cho việc tải lên file), hoặc một dạng dữ liệu khác. Ví dụ:
+
+PUT và POST:
+
+json
+Copy code
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com"
+}
+UPLOAD (sử dụng FormData):
+
+
+const formData = new FormData();
+formData.append('file', file);
+Tham số đường dẫn (Path parameters):
+Trong các endpoint có đường dẫn có dạng /api/users/{id} hoặc /api/reports/{id}, {id}
+ là một tham số có giá trị động. Bạn cần cung cấp giá trị cho tham số này trong URL khi gửi yêu cầu. Ví dụ:
+
+/api/users/123 - Cập nhật người dùng có ID là 123.
+
+Các yếu tố trên có thể được áp dụng trong thư viện HTTP như Axios, Fetch API,
+hoặc các thư viện tương tự để cấu hình yêu cầu cho các phương thức PUT, POST, EXPORT, UPLOAD, và DELETE.
+ Tuy nhiên, cách cấu hình chính xác có thể khác nhau tùy thuộc vào thư viện bạn đang sử dụng.
+
+Dưới đây là một ví dụ cấu hình cơ bản sử dụng Axios để thực hiện các phương thức PUT, POST, EXPORT, UPLOAD, và DELETE:
+
+import axios from 'axios';
+
+// Cấu hình mặc định cho Axios
+axios.defaults.baseURL = 'https://example.com/api'; // URL gốc cho API
+
+// Cấu hình interceptor để thêm header chung vào mỗi yêu cầu
+axios.interceptors.request.use((config) => {
+  // Thêm các thông tin chung vào header
+  config.headers['Authorization'] = `Bearer {token}`;
+  config.headers['Content-Type'] = 'application/json';
+
+  return config;
+});
+
+// PUT
+axios.put('/users/{id}', { name: 'John Doe', email: 'john.doe@example.com' })
+  .then((response) => {
+    console.log('Cập nhật thành công', response.data);
+  })
+  .catch((error) => {
+    console.error('Cập nhật thất bại', error);
+  });
+
+// POST
+axios.post('/users', { name: 'Jane Smith', email: 'jane.smith@example.com' })
+  .then((response) => {
+    console.log('Tạo mới thành công', response.data);
+  })
+  .catch((error) => {
+    console.error('Tạo mới thất bại', error);
+  });
+
+// EXPORT
+axios.get('/reports/{id}', { responseType: 'blob' })
+  .then((response) => {
+    // Xử lý file đã export
+    const file = new Blob([response.data], { type: 'application/pdf' });
+    const fileURL = URL.createObjectURL(file);
+    window.open(fileURL);
+  })
+  .catch((error) => {
+    console.error('Xuất file thất bại', error);
+  });
+
+// UPLOAD
+const fileInput = document.getElementById('myFileInput');
+
+fileInput.addEventListener('change', (event) => {
+  const selectedFile = event.target.files[0];
+
+  const formData = new FormData();
+  formData.append('file', selectedFile);
+
+  axios.post('/files', formData)
+    .then((response) => {
+      console.log('Tải lên thành công', response.data);
+    })
+    .catch((error) => {
+      console.error('Tải lên thất bại', error);
+    });
+});
+
+// DELETE
+axios.delete('/users/{id}')
+  .then((response) => {
+    console.log('Xóa thành công', response.data);
+  })
+  .catch((error) => {
+    console.error('Xóa thất bại', error);
+  });
+Trên đây là một cấu hình cơ bản sử dụng Axios. Tùy thuộc vào thư viện HTTP bạn đang s
+
+Tùy thuộc vào thư viện HTTP bạn đang sử dụng, cấu hình chung cho các phương thức PUT, POST, EXPORT, UPLOAD, và DELETE
+ có thể khác nhau. Dưới đây là một số điểm chung để cấu hình cho các phương thức này:
+
+URL và Endpoint:
+Xác định URL và endpoint tương ứng cho từng phương thức, như đã đề cập trong phần trước.
+
+Phần header:
+Thiết lập các thông tin header phù hợp với yêu cầu của API bạn đang gửi. Điều này có thể bao
+ gồm các thông tin xác thực, loại nội dung, ngôn ngữ, và các thông tin khác. 
+ Hãy xem tài liệu của thư viện HTTP mà bạn đang sử dụng để biết cách thiết lập header.
+
+Thân yêu cầu (Request body):
+Đối với các phương thức PUT, POST, và UPLOAD, bạn cần gửi dữ liệu yêu cầu trong thân yêu cầu. 
+Điều này có thể là một đối tượng JSON, FormData (đối với tải lên file), hoặc một dạng dữ liệu khác.
+ Tùy thuộc vào thư viện HTTP, có các phương thức riêng để thiết lập thân yêu cầu.
+  Hãy tham khảo tài liệu cụ thể của thư viện bạn đang sử dụng để biết cách thiết lập thân yêu cầu chính xác.
+
+Tham số đường dẫn (Path parameters):
+Xử lý các tham số đường dẫn như đã đề cập trong phần trước.
+
+Ngoài ra, cấu hình chung cũng có thể bao gồm xử lý lỗi, xử lý phiên bản HTTP, xử lý middleware, 
+và các yếu tố khác liên quan đến thư viện HTTP cụ thể mà bạn đang sử dụng.
+
+Tuy nhiên, cách cấu hình chính xác phụ thuộc vào thư viện HTTP bạn đang sử dụng. 
+Hãy tham khảo tài liệu và hướng dẫn cụ thể của thư viện HTTP đó để biết cách cấu hình chi tiết cho từng phương thức.
