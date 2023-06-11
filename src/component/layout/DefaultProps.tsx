@@ -1,5 +1,4 @@
 import { ChromeFilled, CrownFilled, CrownTwoTone, HomeTwoTone, SmileFilled, TabletFilled } from '@ant-design/icons';
-import Welcome from '../../layout-project/welcom/Welcome';
 import Treetest from '../../layout-project/layout/Treetest';
 
 export const defaultProps: any = {

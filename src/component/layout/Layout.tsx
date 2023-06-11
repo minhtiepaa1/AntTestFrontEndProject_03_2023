@@ -23,7 +23,6 @@ import React, { Children, useState } from 'react';
 import { defaultProps } from './DefaultProps';
 import styled from '@emotion/styled/types/base';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import Welcome from '../../layout-project/welcom/Welcome';
 import Treetest from '../../layout-project/layout/Treetest';
 import MyTable from '../../layout-project/layout/MyTable';
 import ClickRight from '../../layout-project/layout/ClickRight';

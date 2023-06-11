@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Welcome from './layout-project/welcom/Welcome';
 import Treetest from './layout-project/layout/Treetest';
 
 const root = ReactDOM.createRoot(
@@ -14,7 +13,6 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path='/app' element={<App />}> </Route>
-      <Route path='/welcome' element={<Welcome />}> </Route>
       <Route path='/tree' element={<Treetest />}> </Route>
       <Route path='/admin' element={<Treetest />}> </Route>admin-page1
       <Route path='/admin-page1' element={<Treetest />}> </Route>

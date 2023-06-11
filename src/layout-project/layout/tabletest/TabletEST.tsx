@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table } from 'antd';
 import styles from "./Table.module.css"
+import UploadFile from './UploadFile';
 
 interface DataType {
   key: number;
@@ -94,12 +95,18 @@ const TabletEST: React.FC = () => {
     styles['ant-table-thead'],
   ].join(' ');
 
-  return <Table 
-  className={constainClassName}
- {...tableProps} 
- 
+  return (
+  <div>
+    <span>
+<UploadFile/>
+    </span>
+    
+    <Table 
+    className={constainClassName}
+    {...tableProps} 
   />
-};
+  </div>
+)};
 
 
 export default TabletEST;
