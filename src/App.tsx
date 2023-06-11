@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Layout from './component/layout/Layout';
 import { ChromeFilled, CrownFilled, SmileFilled, TabletFilled } from '@ant-design/icons';
-import Welcome from './layout-project/welcom/Welcome';
+
 import Treetest from './layout-project/layout/Treetest';
 import ClickRight from './layout-project/layout/ClickRight';
 
