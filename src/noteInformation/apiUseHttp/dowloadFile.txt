@@ -1,0 +1,40 @@
+Để cấu hình upload file trong JavaScript với Axios,
+bạn có thể sử dụng các phương thức cấu hình và các options của Axios.
+ Dưới đây là một ví dụ cơ bản về cách cấu hình Axios để upload file:
+
+javascript
+Copy code
+// Import Axios module
+import axios from 'axios';
+
+// Create a new FormData object
+const formData = new FormData();
+formData.append('file', file); // 'file' là tên của trường file trong form data
+
+// Set up Axios config
+const config = {
+  headers: {
+    'content-type': 'multipart/form-data'
+  }
+};
+
+// Make a POST request with Axios
+axios.post('/upload', formData, config)
+  .then(response => {
+    // Xử lý phản hồi thành công
+    console.log(response.data);
+  })
+  .catch(error => {
+    // Xử lý lỗi
+    console.error(error);
+  });
+Trong ví dụ trên, chúng ta sử dụng FormData để tạo một object chứa dữ liệu file cần upload.
+ Sau đó, ta cấu hình Axios thông qua đối tượng config để chỉ định loại dữ 
+ liệu là multipart/form-data, giống với cách mà các biểu mẫu HTML gửi dữ liệu file.
+
+Cuối cùng, chúng ta sử dụng phương thức axios.post để gửi yêu cầu POST 
+đến địa chỉ '/upload' với dữ liệu formData và cấu hình config. 
+Sau khi nhận được phản hồi từ máy chủ, bạn có thể xử lý phản hồi
+thành công hoặc xử lý lỗi trong các khối .then và .catch tương ứng.
+Lưu ý rằng, trong ví dụ trên, địa chỉ '/upload' 
+cần được thay thế bằng địa chỉ URL tương ứng của máy chủ của bạn.
