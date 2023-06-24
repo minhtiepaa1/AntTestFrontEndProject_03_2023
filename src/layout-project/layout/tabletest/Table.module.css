@@ -1,6 +1,16 @@
-.ant-table-wrapper table {
+/* .ant-table-wrapper table {
     background-color: rgb(159, 189, 159) ;
-}
-.ant-table-thead{
+} */
+/* .ant-table-thead {
     background-color: antiquewhite ;
+} */
+/* .ant-table-thead :first-child{
+
+    background-color:burlywood;
+} */
+.ant-table-wrapper .ant-table-thead >tr>th{
+    background-color: red;
+}
+.ant-table-wrapper .ant-table-thead >tr>td {
+    background-color: red;
 }

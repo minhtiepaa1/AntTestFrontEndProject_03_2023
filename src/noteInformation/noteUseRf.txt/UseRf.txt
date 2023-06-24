@@ -1,0 +1,29 @@
+useRef là một hook trong React cho phép bạn tạo một tham chiếu (ref) 
+và lưu giữ giá trị trong quá trình render và sau đó có thể truy cập và 
+thay đổi giá trị đó trong các phương thức hoặc sự kiện khác của component.
+
+Cú pháp sử dụng useRef trong React như sau:
+
+javascript
+Copy code
+const refName = useRef(initialValue);
+Trong đó:
+
+refName là tên mà bạn muốn đặt cho tham chiếu.
+initialValue là giá trị ban đầu mà bạn muốn gán cho tham chiếu. 
+Điều này không bắt buộc, và bạn có thể bỏ qua nó hoặc gán giá trị null.
+Khi sử dụng useRef, bạn có thể truy cập đến tham chiếu bằng cách sử dụng
+ refName.current. Ví dụ: refName.current sẽ trả về giá trị ban đầu đã được
+  gán cho tham chiếu.
+
+Tham chiếu được trả về bởi useRef không thay đổi trong quá trình render. 
+Khi bạn thay đổi giá trị của tham chiếu, React sẽ không kích hoạt lại quá 
+trình render. Điều này làm cho useRef rất hữu ích để lưu giữ và truy cập 
+các giá trị không gây ảnh hưởng đến việc render lại.
+
+Một trong những trường hợp phổ biến sử dụng useRef là khi bạn cần truy cập 
+vào DOM hoặc các thành phần đã khởi tạo như CKEditor, video player, etc. 
+Bằng cách sử dụng useRef, bạn có thể lưu trữ tham chiếu đến các thành phần 
+này và truy cập vào các phương thức hoặc thuộc tính của chúng.
+
+Hy vọng những giải thích trên giúp bạn hiểu cách sử dụng useRef trong React.

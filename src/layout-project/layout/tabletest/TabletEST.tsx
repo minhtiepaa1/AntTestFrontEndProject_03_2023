@@ -1,7 +1,10 @@
-import React from 'react';
-import { Table } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
+import { Button, Table } from 'antd';
 import styles from "./Table.module.css"
 import UploadFile from './UploadFile';
+
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 interface DataType {
   key: number;
@@ -89,20 +92,40 @@ const TabletEST: React.FC = () => {
     columns: columns,
     expandable: { childrenColumnName: 'childrenMot' },
   };
-  const constainClassName  = [
-    styles['ant-table-wrapper'],
-    styles['table'],
-    styles['ant-table-thead'],
-  ].join(' ');
 
+  const onclick =()=>{
+    window.print()
+  }
+  ///
+  const [editorValue, setEditorValue] = useState<any>('mot');
+  const [check, setcheck] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (editorValue === 'mot') {
+      setEditorValue('hai');
+      console.log('hello1', editorValue)
+      setcheck(true);
+    }
+  }, [editorValue]);
+
+   const onchange =(e:any)=>{
+    console.log("e:", e.editor.getData())
+   setEditorValue(e.editor.getData())
+   }
   return (
   <div>
-    <span>
+    <span >
 <UploadFile/>
     </span>
-    
+    <span>
+      <Button onClick={()=>onclick()}> Print</Button>
+    </span>
+   <CKEditor
+   editor={ ClassicEditor }
+   data={editorValue}
+   />
+
     <Table 
-    className={constainClassName}
     {...tableProps} 
   />
   </div>

@@ -10,7 +10,7 @@ const props: UploadProps = {
   headers: {
     authorization: 'authorization-text',
   },
-  onChange(info) {
+  onChange(info:any) {
     console.log("infor:", info)
     if (info.file.status !== 'uploading') {
       console.log(info.file, info.fileList);
@@ -24,9 +24,13 @@ const props: UploadProps = {
 };
 
 const UploadFile: React.FC = () => (
-  <Upload {...props}>
+    <div style={{}}>
+         <Upload
+          {...props} >
     <Button icon={<UploadOutlined />}>Click to Upload file</Button>
   </Upload>
+    </div>
+ 
 );
 
 export default UploadFile;
