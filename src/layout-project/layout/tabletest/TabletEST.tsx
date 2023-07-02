@@ -5,6 +5,9 @@ import UploadFile from './UploadFile';
 
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import DownLoadFile from '../downLoadFile/DownLoadFile';
+import PrintFile from '../printFile/PrintFile';
+import PrinFileButton from '../printFile/PrinFileButton';
 
 interface DataType {
   key: number;
@@ -93,9 +96,7 @@ const TabletEST: React.FC = () => {
     expandable: { childrenColumnName: 'childrenMot' },
   };
 
-  const onclick =()=>{
-    window.print()
-  }
+
   ///
   const [editorValue, setEditorValue] = useState<any>('mot');
   const [check, setcheck] = useState<boolean>(false);
@@ -117,15 +118,15 @@ const TabletEST: React.FC = () => {
     <span >
 <UploadFile/>
     </span>
-    <span>
-      <Button onClick={()=>onclick()}> Print</Button>
-    </span>
    <CKEditor
    editor={ ClassicEditor }
    data={editorValue}
    />
-
+<DownLoadFile />
+<PrintFile/>
+<PrinFileButton/>
     <Table 
+
     {...tableProps} 
   />
   </div>
