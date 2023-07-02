@@ -31,6 +31,7 @@ import MoreTable from '../../layout-project/layout/table/MoreTable';
 import TabletEST from '../../layout-project/layout/tabletest/TabletEST';
 import RightClickTree from '../../layout-project/layout/rightClickTree/RightClickTree';
 import Right from '../../layout-project/layout/rightClickTree/Right';
+import Table3 from '../../tableAntDesign/Table3';
 const Item: React.FC<{ children: React.ReactNode }> = (props) => {
   const { token } = theme.useToken();
   console.log("props.children Item",props.children)
@@ -482,8 +483,9 @@ const Layout: React.FC<{prolayoutProps?: any}> = (props) => {
               {/* <MyTable/> */}
               {/* <TabletEST/> */}
               {/* <MoreTable/> */}
-              <RightClickTree />
-              <Right/>
+              {/* <RightClickTree /> */}
+              {/* <Right/> */}
+              <Table3/>
             {/* <Routes> {getRoutes(prolayoutProps.route.routes)}</Routes> */}
               <div />
             </ProCard>
