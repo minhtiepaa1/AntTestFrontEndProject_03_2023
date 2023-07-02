@@ -20,3 +20,6 @@ git stash pop
 // lệnh xóa stash số o là vị trí stash trong list stash
 git stash drop 0
 ///////////////////////////////////////////////////////
+// để chuyển nhánh khi chưa commit code lưu file thay đổi vào stash sau đó checkout sang nhánh đích, 
+sau dó dùng lệnh: git stash apply để app dụng vào nhánh đó rồi lặp lại bước trên
+
