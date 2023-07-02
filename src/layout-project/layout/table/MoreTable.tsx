@@ -98,7 +98,56 @@ const MoreTable: React.FC = () => {
     // expandable={{ expandedRowRender2, defaultExpandedRowKeys: ['0'] }}
     columns={columns} dataSource={data} pagination={false} bordered={true}/>;
   };
-  
+
+  interface DataPart{
+    id:number,
+    name:string,
+  }
+  interface DataProject{
+    projectId:number,
+    name:string,
+    value:number,
+    childprojects:DataProject[]
+  }
+  interface DataTable{
+    group:string;
+    part: DataPart;
+    projects: DataProject[]
+  }
+ const dataTables: DataTable[] = [
+  {
+    group:"g1",
+    part: {id: 1, name: "name1"},
+    projects: [{
+      projectId:11,
+      name:"name2",
+      value:112,
+      childprojects:[]
+    }]
+  },
+  {
+    group:"g1",
+    part: {id: 1, name: "name1"},
+    projects: [{
+      projectId:11,
+      name:"name2",
+      value:112,
+      childprojects:[{
+        projectId:1121,
+        name:"name2",
+        value:1122,
+        childprojects:[]
+      }]
+    },
+    {
+      projectId:12,
+      name:"name2",
+      value:113,
+      childprojects:[]
+    },
+  ]
+  },
+ ]
   return (
     <>
      <style>{`
