@@ -1,0 +1,18 @@
+// commit toàn bộ sang một nhánh mới nhưng không commit tại nhánh hiện tại:
+// kiểm tra trạng thái:
+git status:
+// tạo nhánh mới: 
+git checkout -b demo-branch
+// lưu code hiện tại vào stash tạm 
+git stash save --include-untracked "Temporary stash"
+// sau đó push toàn bộ code lên nhánh mới
+git push origin demo-branch
+// sau đó trở lại nhánh ban đầu: 
+git checkout vantiep
+// nếu có nhiều stash thì chọn stash màn bạn muốn back lại 
+git stash list --> bằng lệnh này: git stash apply stash@{0}
+// nếu chỉ có 1 stash thì app dụng lệnh này luôn:
+git stash apply:
+// lệnh này sẽ xóa stash tạm thời sau khi áp dụng
+git stash pop
+///////////////////////////////////////////////////////
