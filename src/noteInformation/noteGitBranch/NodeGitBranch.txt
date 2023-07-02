@@ -6,13 +6,17 @@ git checkout -b demo-branch
 // lưu code hiện tại vào stash tạm 
 git stash save --include-untracked "Temporary stash"
 // sau đó push toàn bộ code lên nhánh mới
+add và commit trước tại nhánh demo:
 git push origin demo-branch
 // sau đó trở lại nhánh ban đầu: 
 git checkout vantiep
 // nếu có nhiều stash thì chọn stash màn bạn muốn back lại 
 git stash list --> bằng lệnh này: git stash apply stash@{0}
 // nếu chỉ có 1 stash thì app dụng lệnh này luôn:
-git stash apply:
+git stash apply
+ - đối với list stash thì thêm index trong list stash vào:  git stash apply 0
 // lệnh này sẽ xóa stash tạm thời sau khi áp dụng
 git stash pop
+// lệnh xóa stash số o là vị trí stash trong list stash
+git stash drop 0
 ///////////////////////////////////////////////////////
