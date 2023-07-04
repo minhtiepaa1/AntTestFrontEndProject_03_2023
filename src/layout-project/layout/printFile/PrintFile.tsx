@@ -1,47 +1,68 @@
-import React, { useEffect } from 'react';
 
-const PrintFile: React.FC = () => {
-  useEffect(() => {
-    const handleBeforePrint = () => {
-      const nonPrintableElements = document.querySelectorAll('.non-printable');
 
-      nonPrintableElements.forEach((element: Element) => {
-        element.classList.add('hidden');
-      });
-    };
+import React, { useRef } from 'react';
+import Table3 from '../../../tableAntDesign/Table3';
+function PrintFile() {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
-    const handleAfterPrint = () => {
-      const nonPrintableElements = document.querySelectorAll('.non-printable');
+  const handlePrint = () => {
+    const printableContent = document.getElementById('content')?.innerHTML;
 
-      nonPrintableElements.forEach((element: Element) => {
-        element.classList.remove('hidden');
-      });
-    };
-
-    window.addEventListener('beforeprint', handleBeforePrint);
-    window.addEventListener('afterprint', handleAfterPrint);
-
-    return () => {
-      window.removeEventListener('beforeprint', handleBeforePrint);
-      window.removeEventListener('afterprint', handleAfterPrint);
-    };
-  }, []);
+    if (printableContent) {
+      const iframe = iframeRef.current;
+      if (iframe) {
+        const doc = iframe.contentDocument;
+        if (doc) {
+          doc.open();
+          doc.write(`
+            <html>
+            <head>
+              <style>
+                /* CSS cho phần nội dung cần in */
+                .printable-content {
+                  /* Kiểu dáng, định dạng và bố cục cho phần cần in */
+                }
+              </style>
+            </head>
+            <body>
+              <div class="printable-content">${printableContent}</div>
+              <script>
+                window.onload = function() {
+                  window.print();
+                };
+              </script>
+            </body>
+            </html>
+          `);
+          doc.close();
+        }
+      }
+    }
+  };
 
   return (
     <div>
-      <h1>Đây là trang của tôi</h1>
+      {/* Nội dung của trang */}
+      <h1 className="mot">Đây là trang của tôi</h1>
+      <p>...</p>
 
-      <div className="non-printable">
-        <p>Đây là một phần không được in</p>
+      {/* Nút in */}
+      <button onClick={handlePrint}>
+        Print
+      </button>
+
+      {/* Phần nội dung cần in */}
+      <div id="content" className="printable-content">
+        <h1 style={{ color: 'black' }}>Đây là phần tôi muốn in</h1>
+        <Table3/>
+        <p>...</p>
       </div>
 
-      <div>
-        <p>Đây là một phần được in</p>
-      </div>
-
-      <button onClick={() => window.print()}>Print</button>
+      {/* Phần iframe ẩn */}
+      <iframe ref={iframeRef} style={{ display: 'none' }} title="Print Frame" />
     </div>
   );
 };
+
 
 export default PrintFile;
